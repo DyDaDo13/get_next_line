@@ -6,7 +6,7 @@
 /*   By: dydado13 <dydado13@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 08:55:28 by dylmarti          #+#    #+#             */
-/*   Updated: 2023/10/24 09:47:22 by dydado13         ###   ########.fr       */
+/*   Updated: 2023/10/24 20:13:08 by dydado13         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,29 @@ size_t	ft_strlen(const char *s)
 	return (j);
 }
 
-char	*ft_realloc(char *stash, int size)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	char *str;
+	char	*str;
+	int		i;
+	int		r;
 
-	str = malloc(sizeof(char) * ft_strlen(stash) + size);
-	while (*stash)
+	i = 0;
+	r = 0;
+	str = malloc(sizeof(char) * ft_strlen((char *)s1) + \
+	ft_strlen((char *)s2) + 1);
+	if (str == NULL)
+		return (NULL);
+	while (s1[i])
 	{
-		*str = *stash;
-		str++;
-		stash++;
+		str[i] = s1[i];
+		i++;
 	}
+	while (s2[r])
+	{
+		str[i] = s2[r];
+		i++;
+		r++;
+	}
+	str[i] = '\0';
 	return (str);
 }

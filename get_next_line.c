@@ -6,13 +6,13 @@
 /*   By: dydado13 <dydado13@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 08:54:12 by dylmarti          #+#    #+#             */
-/*   Updated: 2023/10/24 10:05:28 by dydado13         ###   ########.fr       */
+/*   Updated: 2023/10/24 20:09:18 by dydado13         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-#define BUFFER_SIZE 42
+//#define BUFFER_SIZE 5
 
 static char	*rmthings(char *stash)
 {
@@ -66,31 +66,28 @@ char	*get_next_line(int fd)
 	char	*buffer;
 	char	*line;
 	int		i;
+	int		j;
 
+	j = 0;
+	printf("%i\n", BUFFER_SIZE);
 	buffer = ft_calloc(sizeof(char), BUFFER_SIZE + 1);
-	while (i != 0)
 	{
-		i = 0;
 		i = read(fd, buffer, BUFFER_SIZE);
-		stash = ft_realloc(stash, BUFFER_SIZE);
-		if (newline(stash) == 1)
-		{
-			
-			line = ft_calloc(sizeof(char), ft_strlen(beforenewline(stash)) + 1);
-			line = beforenewline(stash);
-			stash = rmthings(stash);
-			free (buffer);
-			return (line);
-		}
-		while (*buffer)
-		{
-			*stash = *buffer;
-			stash++;
-			buffer++;
-		}
+		stash = ft_strjoin(stash, buffer); // erreur stash == rien
+		printf("%s\n", stash);
+		return (0);
+// 		printf("%s", stash);
+// 		return (0);
+// //		if (newline(stash) == 1)
+// 		while (*buffer)
+// 		{
+// 			*stash = *buffer;
+// 			stash++;
+// 			buffer++;
+// 		}
+		printf("hola");
+		return (0);
 	}
-	line = ft_calloc(sizeof(char), ft_strlen(stash));
-	line = stash;
-	free (buffer);
-	return(line);
+	printf("hey");
+	return (0);
 }
