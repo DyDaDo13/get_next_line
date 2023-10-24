@@ -6,7 +6,7 @@
 /*   By: dydado13 <dydado13@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 08:54:12 by dylmarti          #+#    #+#             */
-/*   Updated: 2023/10/23 18:01:34 by dydado13         ###   ########.fr       */
+/*   Updated: 2023/10/24 10:05:28 by dydado13         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,19 +67,30 @@ char	*get_next_line(int fd)
 	char	*line;
 	int		i;
 
-	i = 0;
-	printf("%i\n", BUFFER_SIZE); //======================
-	buffer = malloc(sizeof(char) * BUFFER_SIZE);
-	printf("%li", ft_strlen(buffer)); //=========================
+	buffer = ft_calloc(sizeof(char), BUFFER_SIZE + 1);
 	while (i != 0)
 	{
+		i = 0;
 		i = read(fd, buffer, BUFFER_SIZE);
+		stash = ft_realloc(stash, BUFFER_SIZE);
 		if (newline(stash) == 1)
 		{
+			
+			line = ft_calloc(sizeof(char), ft_strlen(beforenewline(stash)) + 1);
 			line = beforenewline(stash);
 			stash = rmthings(stash);
+			free (buffer);
 			return (line);
 		}
+		while (*buffer)
+		{
+			*stash = *buffer;
+			stash++;
+			buffer++;
+		}
 	}
+	line = ft_calloc(sizeof(char), ft_strlen(stash));
+	line = stash;
+	free (buffer);
 	return(line);
 }
