@@ -3,123 +3,108 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dylmarti <dylmarti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dydado13 <dydado13@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 08:54:12 by dylmarti          #+#    #+#             */
-/*   Updated: 2023/10/25 13:31:28 by dylmarti         ###   ########.fr       */
+/*   Updated: 2023/10/25 23:41:20 by dydado13         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-//#define BUFFER_SIZE 5
+char	*ft_strdup(char *src)
+{
+	char	*dest;
+	int		i;
+
+	i = 0;
+	while (src[i])
+		i++;
+	dest = ft_calloc(sizeof(char), i);
+	i = 0;
+	if (dest == NULL)
+		return (NULL);
+	while (src[i])
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = '\0';
+	return (dest);
+}
 
 static char	*rmthings(char *stash)
 {
-	char *stash2;
-	
-	stash2 = ft_calloc(sizeof(char), ft_strlen(stash));
-	while (*stash != '\0')
-	{
-		if (*stash == '\n')
-		{
-			while (*stash)
-			{
-				*stash2 = *stash;
-				stash++;
-				stash2++;
-			}
-			return (stash2);
-		}
-		stash++;
-	}
-	return (stash);
+	char	*stash2;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	while (stash[i - 1] != '\n')
+		i++;
+	stash2 = ft_calloc(sizeof(char), ft_strlen(stash) - i);
+	while (stash[i])
+		stash2[j++] = stash[i++];
+	return (stash2);
 }
 
 static char	*beforenewline(char *line, char *stash)
-{	
+{
 	int	i;
 
 	i = 0;
-	while (stash[i] - 1 != '\n')
+	while (stash[i - 1] != '\n')
 		i++;
 	line = ft_calloc(sizeof(char), i + 1);
-	while (*stash - 1 != '\n')
+	i = 0;
+	while (stash[i - 1] != '\n')
 	{
-		*line = *stash;
-		line++;
-		stash++;
+		line[i] = stash[i];
+		i++;
 	}
 	return (line);
 }
 
 static int	newline(char *stash)
 {
-	while (*stash != '\n')
+	int	i;
+
+	i = 0;
+	while (stash[i])
 	{
-		if ((*stash - 1) == '\n')
+		if ((stash[i]) == '\n')
 			return (1);
-		stash++;
+		i++;
 	}
 	return (0);
 }
 
 char	*get_next_line(int fd)
 {
+	char		*line;
+	char		*buffer;
 	static char	*stash;
-	char	*buffer;
-	char	*line;
-	int		i;
+	int			i;
 
-	stash = "";
+	if (stash == NULL)
+		stash = "";
 	buffer = ft_calloc(sizeof(char), BUFFER_SIZE + 1);
 	i = read(fd, buffer, BUFFER_SIZE);
 	while (i != 0)
 	{
 		stash = ft_strjoin(stash, buffer);
-		// if (newline(stash) == 1)
-		// {
-		// 	return (0);
-		// 	beforenewline(line, stash);
-		// 	stash = rmthings(stash);
-		// 	free (buffer);
-		// 	printf("%s\n", stash);
-		// 	printf("%s\n", line);
-		// 	return (line);
-		// }
-		printf("i : %i\n", i);
-		printf("BUFFER_SIZE %i\n", BUFFER_SIZE);
-		printf("buffer : %s\n", buffer);
-		printf("%s\n", stash);
-		printf("\n");
-		ft_bzero(buffer, BUFFER_SIZE);
+		if (newline(stash) == 1)
+		{
+			line = beforenewline(line, stash);
+			stash = rmthings(stash);
+			free (buffer);
+			return (line);
+		}
+		ft_memset(buffer, '\0', BUFFER_SIZE);
 		i = read(fd, buffer, BUFFER_SIZE);
 	}
-
-	
-	// i = read(fd, buffer, i);
-	// printf("i : %i\n", i);
-	// printf("buffer : %s\n", buffer);
-	// stash = ft_strjoin("bonjo", "ur");
-	// printf("%s", stash);
-	// printf("%s\n", stash);
-	// printf("%i\n", i);
-	return (0);
+	line = ft_strdup(stash);
+	free (stash);
+	return (line);
 }
-/*
-		return (0);
-// 		printf("%s", stash);
-// 		return (0);
-// //		if (newline(stash) == 1)
-// 		while (*buffer)
-// 		{
-// 			*stash = *buffer;
-// 			stash++;
-// 			buffer++;
-// 		}
-		printf("hola");
-		return (0);
-	}
-	printf("hey");
-	return (0);
-}*/

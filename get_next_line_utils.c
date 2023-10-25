@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dylmarti <dylmarti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dydado13 <dydado13@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 08:55:28 by dylmarti          #+#    #+#             */
-/*   Updated: 2023/10/25 12:42:11 by dylmarti         ###   ########.fr       */
+/*   Updated: 2023/10/25 22:58:59 by dydado13         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 
 	i = 0;
 	r = 0;
-	str = malloc(sizeof(char) * ft_strlen((char *)s1) + \
+	str = ft_calloc(sizeof(char), ft_strlen((char *)s1) + \
 	ft_strlen((char *)s2) + 1);
 	if (str == NULL)
 		return (NULL);
@@ -77,19 +77,3 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (str);
 }
 
-void	ft_bzero(void *s, size_t n)
-{
-	unsigned char	*str;
-	size_t			i;
-
-	if (n == 0)
-		return ;
-	i = 0;
-	str = (unsigned char *)s;
-	while (i < n)
-	{
-		str[i] = '\0';
-		i++;
-	}
-	return ;
-}
