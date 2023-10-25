@@ -6,7 +6,7 @@
 /*   By: dydado13 <dydado13@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 08:54:48 by dylmarti          #+#    #+#             */
-/*   Updated: 2023/10/24 19:37:25 by dydado13         ###   ########.fr       */
+/*   Updated: 2023/10/24 20:28:21 by dydado13         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,7 @@
 #define BUFFER_SIZE 4
 
 char	*get_next_line(int fd);
-char	*ft_realloc(char *stash, int size);
 void	*ft_calloc(size_t nmemb, size_t size);
 void	*ft_memset(void *s, int c, size_t n);
-size_t	ft_strlen(const char *s);
-size_t	ft_strlen(const char *s);
 char	*ft_strjoin(char const *s1, char const *s2);
+size_t	ft_strlen(const char *s);

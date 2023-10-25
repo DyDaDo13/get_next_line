@@ -6,7 +6,7 @@
 /*   By: dydado13 <dydado13@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 08:54:12 by dylmarti          #+#    #+#             */
-/*   Updated: 2023/10/24 20:09:18 by dydado13         ###   ########.fr       */
+/*   Updated: 2023/10/25 10:48:44 by dydado13         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ static char	*rmthings(char *stash)
 		}
 		stash++;
 	}
+	return (stash);
 }
 
 static char	*beforenewline(char *stash)
@@ -69,6 +70,7 @@ char	*get_next_line(int fd)
 	int		j;
 
 	j = 0;
+	stash = "";
 	printf("%i\n", BUFFER_SIZE);
 	buffer = ft_calloc(sizeof(char), BUFFER_SIZE + 1);
 	{
