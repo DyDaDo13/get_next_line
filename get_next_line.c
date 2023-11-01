@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dydado13 <dydado13@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dylmarti <dylmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 10:37:37 by dydado13          #+#    #+#             */
-/*   Updated: 2023/10/31 14:24:14 by dydado13         ###   ########.fr       */
+/*   Updated: 2023/11/01 14:25:58 by dylmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ char	*after_newline(char *stash)
 	int		j;
 
 	i = 0;
-	while (stash[i] != '\n')
+	j = 0;
+	while (stash[i - 1] != '\n')
 		i++;
 	str = malloc(sizeof(char) * ft_strlen(stash) - i + 1);
 	if (!str)
@@ -33,6 +34,7 @@ char	*after_newline(char *stash)
 		i++;
 	}
 	free(stash);
+	str[j] = '\0';
 	return (str);
 }
 
@@ -55,7 +57,6 @@ char	*before_newline(char *stash)
 		str[i] = stash[i];
 		i++;
 	}
-	printf("%c", stash[i]);
 	if (stash[i] == '\n')
 	{
 		str[i] = stash[i];
@@ -101,5 +102,6 @@ char	*get_next_line(int fd)
 	stash = read_and_save(fd, stash);
 	line = before_newline(stash);
 	stash = after_newline(stash);
+	return (line);
 	return (line);
 }
