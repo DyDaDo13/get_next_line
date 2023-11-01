@@ -5,49 +5,27 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dydado13 <dydado13@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/20 08:55:28 by dylmarti          #+#    #+#             */
-/*   Updated: 2023/10/25 22:58:59 by dydado13         ###   ########.fr       */
+/*   Created: 2023/10/31 10:37:46 by dydado13          #+#    #+#             */
+/*   Updated: 2023/10/31 12:00:25 by dydado13         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void	*ft_calloc(size_t nmemb, size_t size)
+char	*ft_strchr(const char *s, int c)
 {
-	void	*tab;
+	int	i;
 
-	tab = malloc(size * nmemb);
-	if (tab == NULL)
-		return (NULL);
-	ft_memset(tab, 0, size * nmemb);
-	return (tab);
-}
-
-void	*ft_memset(void *s, int c, size_t n)
-{
-	unsigned char	*str;
-	size_t			i;
-
-	str = (unsigned char *)s;
 	i = 0;
-	if (n == 0)
-		return (str);
-	while (i < n)
+	while (s[i])
 	{
-		str[i] = (unsigned char)c;
+		if (s[i] == (char)c)
+			return ((char *)s + i);
 		i++;
 	}
-	return (str);
-}
-
-size_t	ft_strlen(const char *s)
-{
-	int	j;
-
-	j = 0;
-	while (s[j])
-		j++;
-	return (j);
+	if ((char)c == '\0')
+		return ((char *)s + i);
+	return (0);
 }
 
 char	*ft_strjoin(char const *s1, char const *s2)
@@ -58,8 +36,9 @@ char	*ft_strjoin(char const *s1, char const *s2)
 
 	i = 0;
 	r = 0;
-	str = ft_calloc(sizeof(char), ft_strlen((char *)s1) + \
-	ft_strlen((char *)s2) + 1);
+	if (!s1)
+		s1 = malloc(0);
+	str = malloc(sizeof(char) * ft_strlen(s1) + ft_strlen(s2) + 1);
 	if (str == NULL)
 		return (NULL);
 	while (s1[i])
@@ -73,7 +52,16 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		i++;
 		r++;
 	}
-	str[i] = '\0';
+	str[ft_strlen(s1) + ft_strlen(s2)] = '\0';
 	return (str);
 }
 
+size_t	ft_strlen(const char *s)
+{
+	int	j;
+
+	j = 0;
+	while (s[j])
+		j++;
+	return (j);
+}
